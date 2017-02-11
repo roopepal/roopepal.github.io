@@ -80,6 +80,6 @@ var sendSettingTooSmall = function() {
 
 window.addEventListener('message', function(event) {
   var new_log = document.createElement('p');
-  new_log.innerHTML = event.data;
+  new_log.innerHTML = JSON.stringify(event.data);
   document.getElementById('log').appendChild(new_log);
 });
