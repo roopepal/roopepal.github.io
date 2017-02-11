@@ -78,3 +78,8 @@ var sendSettingTooSmall = function() {
   });
 };
 
+window.addEventListener('message', function(event) {
+  var new_log = document.createElement('p');
+  new_log.innerHTML = event.data;
+  document.getElementById('log').appendChild(new_log);
+});
