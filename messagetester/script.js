@@ -1,4 +1,4 @@
-var sendMessage(message) {
+var sendMessage = function(message) {
   window.parent.postMessage(message, "*");
 };
 
