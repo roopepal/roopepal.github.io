@@ -28,7 +28,7 @@ var sendLoadRequest = function() {
   });
 };
 
-var sendSetting = function() {
+var sendSettingSmall = function() {
   sendMessage({
     messageType: "SETTING",
     options: {
@@ -37,3 +37,44 @@ var sendSetting = function() {
     }
   });
 };
+
+var sendSettingMedium = function() {
+  sendMessage({
+    messageType: "SETTING",
+    options: {
+      "width": 640,
+      "height": 480
+    }
+  });
+};
+
+var sendSettingLarge = function() {
+  sendMessage({
+    messageType: "SETTING",
+    options: {
+      "width": 1024,
+      "height": 768
+    }
+  });
+};
+
+var sendSettingTooLarge = function() {
+  sendMessage({
+    messageType: "SETTING",
+    options: {
+      "width": 2000,
+      "height": 1000
+    }
+  });
+};
+
+var sendSettingTooSmall = function() {
+  sendMessage({
+    messageType: "SETTING",
+    options: {
+      "width": -200,
+      "height": -200
+    }
+  });
+};
+
