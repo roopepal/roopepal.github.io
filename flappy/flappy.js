@@ -10,7 +10,6 @@ var Bird = function(canvas) {
   this.numOfFrames = 4;
   this.frameIndex = 0;
   this.lastFrameChangeAt = 0;
-  // hardcoded, would need to wait for image load...
   this.w = 50;
   this.h = 172 / this.numOfFrames;
 
@@ -130,6 +129,13 @@ var Game = function(initW, initH) {
 
   var handleCollision = function(e) {
     running = false;
+
+    // submit score
+    window.parent.postMessage({
+      'messageType': 'SCORE',
+      'score': points
+    } "*");
+
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
@@ -137,7 +143,7 @@ var Game = function(initW, initH) {
     var text = "Game over!"
     ctx.fillText(text, canvas.width/2, canvas.height/2 - 24);
     ctx.strokeText(text, canvas.width/2, canvas.height/2 - 24);
-    var text = "(Press space or click to restart)"
+    var text = "(Your score was submitted. Press space or click to restart)"
     ctx.font = smallFont;
     ctx.lineWidth = 1.5;
     ctx.fillText(text, canvas.width/2, canvas.height/2 - 24 + 70);
