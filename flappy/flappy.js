@@ -130,11 +130,13 @@ var Game = function(initW, initH) {
   var handleCollision = function(e) {
     running = false;
 
-    // submit score
-    window.parent.postMessage({
-      'messageType': 'SCORE',
-      'score': points
-    } "*");
+    // submit score if more than 0
+    if (points > 0) {
+      window.parent.postMessage({
+        'messageType': 'SCORE',
+        'score': points
+      }, "*");
+    }
 
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
