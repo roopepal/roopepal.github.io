@@ -130,26 +130,30 @@ var Game = function(initW, initH) {
   var handleCollision = function(e) {
     running = false;
 
-    // submit score if more than 0
-    if (points > 0) {
+    // if no points, player just started
+    if (points < 1) {
+      var big_text = "Flappy";
+      var small_text = "(Press space or click to start)";
+    } else {
+      // submit score if more than 0
       window.parent.postMessage({
         'messageType': 'SCORE',
         'score': points
       }, "*");
+      var big_text = "Game over!";
+      var small_text = "(Your score was submitted.\nPress space or click to restart)";
     }
 
     ctx.fillStyle = "white";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
     ctx.textAlign = "center"
-    var text = "Game over!"
-    ctx.fillText(text, canvas.width/2, canvas.height/2 - 24);
-    ctx.strokeText(text, canvas.width/2, canvas.height/2 - 24);
-    var text = "(Your score was submitted. Press space or click to restart)"
+    ctx.fillText(big_text, canvas.width/2, canvas.height/2 - 24);
+    ctx.strokeText(big_text, canvas.width/2, canvas.height/2 - 24);
     ctx.font = smallFont;
     ctx.lineWidth = 1.5;
-    ctx.fillText(text, canvas.width/2, canvas.height/2 - 24 + 70);
-    ctx.strokeText(text, canvas.width/2, canvas.height/2 - 24 + 70);
+    ctx.fillText(small_text, canvas.width/2, canvas.height/2 - 24 + 70);
+    ctx.strokeText(small_text, canvas.width/2, canvas.height/2 - 24 + 70);
     ctx.font = largeFont;
   };
 
