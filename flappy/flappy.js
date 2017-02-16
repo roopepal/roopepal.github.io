@@ -133,7 +133,7 @@ var Game = function(initW, initH) {
     // if no points, player just started
     if (points < 1) {
       var big_text = "Flappy";
-      var small_text = "(Press space or click to start)";
+      var small_text = "Press space or click to start";
     } else {
       // submit score if more than 0
       window.parent.postMessage({
@@ -141,7 +141,8 @@ var Game = function(initW, initH) {
         'score': points
       }, "*");
       var big_text = "Game over!";
-      var small_text = "(Your score was submitted.\nPress space or click to restart)";
+      var small_text_line_one = "Your score was submitted.";
+      var small_text_line_two = "Press space or click to restart.";
     }
 
     ctx.fillStyle = "white";
@@ -152,8 +153,10 @@ var Game = function(initW, initH) {
     ctx.strokeText(big_text, canvas.width/2, canvas.height/2 - 24);
     ctx.font = smallFont;
     ctx.lineWidth = 1.5;
-    ctx.fillText(small_text, canvas.width/2, canvas.height/2 - 24 + 70);
-    ctx.strokeText(small_text, canvas.width/2, canvas.height/2 - 24 + 70);
+    ctx.fillText(small_text_line_one, canvas.width/2, canvas.height/2 - 24 + 70);
+    ctx.strokeText(small_text_line_one, canvas.width/2, canvas.height/2 - 24 + 70);
+    ctx.fillText(small_text_line_two, canvas.width/2, canvas.height/2 - 24 + 110);
+    ctx.strokeText(small_text_line_two, canvas.width/2, canvas.height/2 - 24 + 110);
     ctx.font = largeFont;
   };
 
