@@ -133,7 +133,8 @@ var Game = function(initW, initH) {
     // if no points, player just started
     if (points < 1) {
       var big_text = "Flappy";
-      var small_text = "Press space or click to start";
+      var small_text_line_one = "Press space or click to start";
+      var small_text_line_two = "";
     } else {
       // submit score if more than 0
       window.parent.postMessage({
