@@ -96,10 +96,13 @@ var Pipe = function(canvas) {
 };
 
 var Game = function(initW, initH) {
+  var first_init = true;
   var running = true;
   var lastPipeAt = 0;
   var w = initW;
   var h = initH;
+  // for when points were loaded from a savegame (cheat mode :))
+  var pointsWereLoaded = false;
 
   var canvas = document.createElement("canvas");
   var ctx = canvas.getContext("2d");
@@ -117,7 +120,8 @@ var Game = function(initW, initH) {
   var pipes = [];
   var points = 0;
 
-  var handleFlap = function(e) {
+  // handles keys and clicks
+  var handlePress = function(e) {
     if (e.keyCode === 32 || e.type === "click") {
       if (running) {
         bird.flap();
@@ -125,16 +129,57 @@ var Game = function(initW, initH) {
         reset();
       }
     }
-  }
+    else if (e.key === "s") {
+      // can save points at game over (cheat mode :))
+      if (!running) {
+        // send savegame with the points
+        window.parent.postMessage({
+          'messageType': 'SAVE',
+          'gameState': {
+            points: points
+          }
+        }, "*");
+      }
+    }
+    else if (e.key === 'l') {
+      // can load points when starting a new game
+      if (!running) {
+        // send load request
+        window.parent.postMessage({
+          'messageType': 'LOAD_REQUEST'
+        }, "*");
+      }
+    }
+  };
+
+  var handleMessage = function(e) {
+    var receivedMessage = e.data;
+    // handle LOAD messages, ignore the rest
+    // check message format to not crash things, otherwise ignore
+    if (receivedMessage.hasOwnProperty('messageType')) {
+      if (receivedMessage.messageType === 'LOAD') {
+        if (receivedMessage.hasOwnProperty('gameState')) {
+          if (receivedMessage.gameState.hasOwnProperty('points')) {
+            points = receivedMessage.gameState.points;
+            pointsWereLoaded = true;
+          }
+        }
+      }
+    }
+  };
 
   var handleCollision = function(e) {
     running = false;
+
+    // NOTE: Text has to be drawn line by line since the HTML5 canvas does not
+    //       support automatic newlines.
 
     // if no points, player just started
     if (points < 1) {
       var big_text = "Flappy";
       var small_text_line_one = "Press space or click to start";
       var small_text_line_two = "";
+      var small_text_line_three = "Save points with S, load points with L.";
     } else {
       // submit score if more than 0
       window.parent.postMessage({
@@ -142,8 +187,10 @@ var Game = function(initW, initH) {
         'score': points
       }, "*");
       var big_text = "Game over!";
+
       var small_text_line_one = "Your score was submitted.";
       var small_text_line_two = "Press space or click to restart.";
+      var small_text_line_three = "Save points with S, load points with L.";
     }
 
     ctx.fillStyle = "white";
@@ -158,6 +205,8 @@ var Game = function(initW, initH) {
     ctx.strokeText(small_text_line_one, canvas.width/2, canvas.height/2 - 24 + 70);
     ctx.fillText(small_text_line_two, canvas.width/2, canvas.height/2 - 24 + 110);
     ctx.strokeText(small_text_line_two, canvas.width/2, canvas.height/2 - 24 + 110);
+    ctx.fillText(small_text_line_three, canvas.width/2, canvas.height/2 - 24 + 150);
+    ctx.strokeText(small_text_line_three, canvas.width/2, canvas.height/2 - 24 + 150);
     ctx.font = largeFont;
   };
 
@@ -220,20 +269,33 @@ var Game = function(initW, initH) {
   }
 
   var init = function() {
-    window.addEventListener('keydown', handleFlap);
-    canvas.addEventListener('click', handleFlap, false);
+    // game events
+    window.addEventListener('keydown', handlePress);
+    canvas.addEventListener('click', handlePress, false);
     this.addEventListener('collision', handleCollision);
     this.addEventListener('gotPoint', handlePoint);
 
+    // listen for messages from the service
+    window.addEventListener('message', handleMessage);
+
+    // do not auto-start at the first game load
+    if (first_init) {
+      // let the background load before showing the message
+      setTimeout(handleCollision, 200);
+      first_init = false;
+    }
     bird.flap();
     loop();
   };
 
   var reset = function() {
-    console.log(reset);
     bird = new Bird(canvas);
     pipes = [];
-    points = 0;
+    if (pointsWereLoaded) {
+      pointsWereLoaded = false;
+    } else {
+      points = 0;
+    }
     running = true;
     init();
   };
