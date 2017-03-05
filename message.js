@@ -3,6 +3,8 @@ $(document).ready(function() {
   // wait for the iframe to load
   $('#game-iframe').on('load', function() {
 
+    console.log('load');
+
     var iframe = document.getElementById('game-iframe');
     var iframeWindow = iframe.contentWindow || iframe;
 
@@ -23,6 +25,7 @@ $(document).ready(function() {
     };
 
     var forwardMessageToService = function(message) {
+      console.log('forward', message);
       $.ajax({
         url: baseUrl + urls[message.messageType],
         method: 'post',
@@ -46,6 +49,7 @@ $(document).ready(function() {
 
     // listen for incoming messages
     $(window).on('message', function(e) {
+      console.log('message', e);
       var receivedMessage = e.originalEvent.data;
 
       /*
