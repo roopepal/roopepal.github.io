@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+  console.log('ready');
+
+  console.log($('#game-iframe'));
+
   // wait for the iframe to load
   $('#game-iframe').on('load', function() {
 
