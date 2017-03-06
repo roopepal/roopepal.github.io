@@ -9,9 +9,6 @@ $(document).ready(function() {
 
     console.log('load');
 
-    var iframe = document.getElementById('game-iframe');
-    var iframeWindow = iframe.contentWindow || iframe;
-
     var baseUrl = window.location.href;
     var urls = {
       'SCORE': 'score/',
@@ -25,6 +22,9 @@ $(document).ready(function() {
         'messageType': 'ERROR',
         'info': errorMessage
       };
+      // load iframe again to ensure that it is found
+      var iframe = document.getElementById('game-iframe');
+      var iframeWindow = iframe.contentWindow || iframe;
       iframeWindow.postMessage(msg, "*");
     };
 
@@ -40,6 +40,9 @@ $(document).ready(function() {
           response.gameState = JSON.parse(response.gameState);
         }
         // forward responses to the game
+        // load iframe again to ensure that it is found
+        var iframe = document.getElementById('game-iframe');
+        var iframeWindow = iframe.contentWindow || iframe;
         iframeWindow.postMessage(response, "*");
       }).fail(function(error) {
         // send error message to game if something went wrong

@@ -24,12 +24,12 @@ $(document).ready(function() {
     console.log('game-loader url', url);
     if (url) {
 
-      console.log('game-loader creating element');
+      // console.log('game-loader creating element');
       var iframe = document.createElement("iframe");
-      console.log('game-loader iframe', iframe);
+      // console.log('game-loader iframe', iframe);
       iframe.src = url;
       iframe.frameborder = 0;
-      console.log('game-loader iframe', iframe);
+      // console.log('game-loader iframe', iframe);
       iframeWrap.appendChild(iframe);
       console.log('game-loader iframeWrap', iframeWrap);
     }
