@@ -6,6 +6,8 @@
  *
  * Reads the game URL from the #iframe-wrap element's data-game-url attribute
  * and creates the iframe element.
+ *
+ * Must be loaded after the message service (message.js).
  */
 
 console.log("game-loader");
@@ -26,7 +28,7 @@ $(document).ready(function() {
       var iframe = document.createElement("iframe");
       console.log('game-loader iframe', iframe);
       iframe.src = url;
-      iframe.frameborder = "0";
+      iframe.frameborder = 0;
       console.log('game-loader iframe', iframe);
       iframeWrap.appendChild(iframe);
       console.log('game-loader iframeWrap', iframeWrap);
