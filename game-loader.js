@@ -27,6 +27,7 @@ $(document).ready(function() {
       // console.log('game-loader creating element');
       var iframe = document.createElement("iframe");
       // console.log('game-loader iframe', iframe);
+      iframe.id = "game-iframe";
       iframe.src = url;
       iframe.frameborder = 0;
       // console.log('game-loader iframe', iframe);
