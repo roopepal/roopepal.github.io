@@ -1,15 +1,11 @@
-document.addEventListener('load', function(e) {
-  console.log('document loaded');
-});
-
-// $(document).ready(function() {
+$(document).ready(function() {
 
   console.log('ready');
 
   console.log($('#game-iframe'));
 
   // wait for the iframe to load
-  // $('#game-iframe').on('load', function() {
+  $('#game-iframe').on('load', function() {
 
     console.log('load');
 
@@ -136,6 +132,6 @@ document.addEventListener('load', function(e) {
 
     });
 
-  //});
+  });
 
-// });
+});
