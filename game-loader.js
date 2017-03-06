@@ -33,6 +33,9 @@ $(document).ready(function() {
       // console.log('game-loader iframe', iframe);
       iframeWrap.appendChild(iframe);
       console.log('game-loader iframeWrap', iframeWrap);
+
+      // set focus on the iframe since games may utilize key presses
+      iframe.focus();
     }
   }
 });
