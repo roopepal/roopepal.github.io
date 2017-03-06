@@ -1,4 +1,8 @@
-$(document).ready(function() {
+document.addEventListener('load', function(e) {
+  console.log('document loaded');
+});
+
+// $(document).ready(function() {
 
   console.log('ready');
 
@@ -134,4 +138,4 @@ $(document).ready(function() {
 
   //});
 
-});
+// });
