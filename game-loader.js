@@ -8,6 +8,8 @@
  * and creates the iframe element.
  */
 
+console.log("game-loader");
+
 document.addEventListener('load', function() {
   console.log('game-loader load');
 
