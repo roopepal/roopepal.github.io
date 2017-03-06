@@ -29,7 +29,7 @@ $(document).ready(function() {
       // console.log('game-loader iframe', iframe);
       iframe.id = "game-iframe";
       iframe.src = url;
-      iframe.frameborder = 0;
+      iframe.setAttribute("frameborder", "0");
       // console.log('game-loader iframe', iframe);
       iframeWrap.appendChild(iframe);
       console.log('game-loader iframeWrap', iframeWrap);
