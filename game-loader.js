@@ -10,7 +10,7 @@
 
 console.log("game-loader");
 
-document.addEventListener('load', function() {
+$(document).ready(function() {
   console.log('game-loader load');
 
   var iframeWrap = document.getElementById('iframe-wrap');
