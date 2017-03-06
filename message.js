@@ -123,6 +123,8 @@ $(document).ready(function() {
               h = Math.min(Math.max(h, 150), 768) + 'px';
               w = Math.min(Math.max(w, 150), 1024) + 'px';
 
+              // load iframe again to ensure that it is found
+              var iframe = document.getElementById('game-iframe');
               iframe.style.height = h;
               iframe.style.width = w;
             }
